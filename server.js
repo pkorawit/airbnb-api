@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 const mongoose = require('mongoose');
 const Place = require('./models/place');
 
@@ -30,7 +30,7 @@ app.get('/api/airbnb/listings/:id', async (req, res) => {
     // Get data from MongoDB
     console.log(req.params.id);
     const query = {_id: req.params.id};
-    const places = await Place.find(query);
+    const places = await Place.find(query).limit(20);
     console.log(places);
     res.json(places);
 
